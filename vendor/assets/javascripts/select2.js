@@ -1532,6 +1532,10 @@ S2.define('select2/selection/multiple',[
 
     MultipleSelection.__super__.bind.apply(this, arguments);
 
+    this.$selection.on('focus', function (evt) {
+      self.$search.trigger('focus');
+    });
+
     this.$selection.on('click', function (evt) {
       self.trigger('toggle', {
         originalEvent: evt
@@ -1888,6 +1892,7 @@ S2.define('select2/selection/search',[
     this.trigger('open');
 
     this.$search.val(item.text + ' ');
+    this.resizeSearch();
   };
 
   Search.prototype.resizeSearch = function () {
@@ -5088,7 +5093,7 @@ S2.define('select2/core',[
       var key = evt.which;
 
       if (self.isOpen()) {
-        if (key === KEYS.ENTER) {
+        if (key === KEYS.ENTER || key === KEYS.TAB) {
           self.trigger('results:select');
 
           evt.preventDefault();
@@ -5104,7 +5109,7 @@ S2.define('select2/core',[
           self.trigger('results:next');
 
           evt.preventDefault();
-        } else if (key === KEYS.ESC || key === KEYS.TAB) {
+        } else if (key === KEYS.ESC) {
           self.close();
 
           evt.preventDefault();
