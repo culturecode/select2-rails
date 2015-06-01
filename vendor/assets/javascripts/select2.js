@@ -1229,7 +1229,7 @@ S2.define('select2/results',[
     var template = this.options.get('templateResult');
     var escapeMarkup = this.options.get('escapeMarkup');
 
-    var content = template(result);
+    var content = template(result, container);
 
     if (content == null) {
       container.style.display = 'none';
@@ -4643,7 +4643,7 @@ S2.define('select2/defaults',[
       sorter: function (data) {
         return data;
       },
-      templateResult: function (result) {
+      templateResult: function (result, container) {
         return result.text;
       },
       templateSelection: function (selection) {
